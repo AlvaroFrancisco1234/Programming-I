@@ -1,0 +1,133 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class CitationGenerator {
+public:
+    string generateMLACitationBook( string& author,  string& title,  string& publisher, int year) {
+        return author + ". " + title + ". " + publisher + ", " + to_string(year) + ".";
+    }
+
+    string generateMLACitationWebsite( string& author,  string& title,  string& website,  string& url,  string& dateAccessed) {
+        return author + ". \"" + title + ".\" " + website + ", " + url + ". Accessed " + dateAccessed + ".";
+    }
+
+    string generateAPACitationBook( string& author,  string& title,  string& publisher, int year) {
+        return author + " (" + to_string(year) + "). " + title + ". " + publisher + ".";
+    }
+
+    string generateAPACitationWebsite( string& author,  string& title,  string& website,  string& url,  string& dateAccessed) {
+        return author + " (" + dateAccessed + "). " + title + ". " + website + ". Retrieved from " + url + ".";
+    }
+
+    string generateChicagoCitationBook( string& author,  string& title, string& publisher, int year) {
+        return author + ". " + title + ". " + publisher + ", " + to_string(year) + ".";
+    }
+
+    string generateChicagoCitationWebsite( string& author,  string& title,  string& website,  string& url,  string& dateAccessed) {
+        return author + ". \"" + title + ".\" " + website + ", " + url + " (accessed " + dateAccessed + ").";
+    }
+};
+
+int main() {
+    CitationGenerator generator;
+
+    int choice;
+    int sourceChoice;
+    string author, title, publisher, website, url, dateAccessed;
+    int year;
+    char repeat;
+
+    do {
+        cout << "Citation Generator\n";
+        cout << "1. MLA\n";
+        cout << "2. APA\n";
+        cout << "3. Chicago\n";
+        cout << "Enter your choice (1, 2, or 3): ";
+        cin >> choice;
+        cin.ignore(); // Ignore the newline character in the input buffer
+
+        cout << "Choose the source type:\n";
+        cout << "1. Book\n";
+        cout << "2. Website\n";
+        cout << "Enter your choice (1 or 2): ";
+        cin >> sourceChoice;
+        cin.ignore(); // Ignore the newline character in the input buffer
+
+        if (sourceChoice == 1) {
+            cout << "Enter the author: ";
+            getline(cin, author);
+
+            cout << "Enter the title: ";
+            getline(cin, title);
+
+            cout << "Enter the publisher: ";
+            getline(cin, publisher);
+
+            cout << "Enter the year: ";
+            cin >> year;
+
+            if (choice == 1) {
+                string citation = generator.generateMLACitationBook(author, title, publisher, year);
+                cout <<"\n--------------------------------------------------\n";
+                cout << "\nMLA Citation (Book): \n" << citation <<"\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else if (choice == 2) {
+                string citation = generator.generateAPACitationBook(author, title, publisher, year);
+                cout <<"\n--------------------------------------------------\n";
+                cout << "\nAPA Citation (Book): \n" << citation <<"\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else if (choice == 3) {
+                string citation = generator.generateChicagoCitationBook(author, title, publisher, year);
+                cout <<"\n--------------------------------------------------\n";
+                cout << "\nChicago Citation (Book): \n" << citation << "\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else {
+                cout << "Invalid citation style choice." << endl;
+            }
+        } else if (sourceChoice == 2) {
+            cout << "Enter the author: ";
+            getline(cin, author);
+
+            cout << "Enter the title: ";
+            getline(cin, title);
+
+            cout << "Enter the website: ";
+            getline(cin, website);
+
+            cout << "Enter the URL: ";
+            getline(cin, url);
+
+            cout << "Enter the date accessed: ";
+            getline(cin, dateAccessed);
+
+            if (choice == 1) {
+                string citation = generator.generateMLACitationWebsite(author, title, website, url, dateAccessed);
+                cout <<"\n--------------------------------------------------";
+                cout << "\nMLA Citation (Website): \n" << citation <<"\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else if (choice == 2) {
+                string citation = generator.generateAPACitationWebsite(author, title, website, url, dateAccessed);
+                cout <<"\n--------------------------------------------------";
+                cout << "\nAPA Citation (Website): \n" << citation << "\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else if (choice == 3) {
+                string citation = generator.generateChicagoCitationWebsite(author, title, website, url, dateAccessed);
+                cout <<"\n--------------------------------------------------";
+                cout << "\nChicago Citation (Website): \n" << citation << "\n"<<endl;
+                cout <<"--------------------------------------------------\n";
+            } else {
+                cout << "Invalid citation style choice." << "\n"<<endl;
+            }
+        } else {
+            cout << "Invalid source type choice." << endl;
+        }
+
+        cout << "Do you want to generate another citation? (y/n): ";
+        cin >> repeat;
+        cin.ignore(); // Ignore the newline character in the input buffer
+    } while (repeat == 'y' || repeat == 'Y');
+
+    return 0;
+}
